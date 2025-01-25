@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Bucket List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, rgb(70,40,120), rgb(30,70,160));
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        #activities, #finalList {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 40%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .item {
+            background: rgb(100,50,200);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .item:hover {
+            transform: scale(1.05);
+            background: rgb(130,70,230);
+        }
+        h1, h2 {
+            text-align: center;
+            color: rgb(220,220,255);
+        }
+    </style>
+</head>
+<body>
+    <h1>🌈 Dream Bucket List Creator</h1>
+    <div class="container">
+        <div id="activities">
+            <h2>Available Adventures</h2>
+        </div>
+        <div id="finalList">
+            <h2>My Dream List</h2>
+        </div>
+    </div>
+
+    <script>
+        const activities = [
+            'Travel to Japan', 
+            'Learn a new language', 
+            'Skydive', 
+            'Write a book', 
+            'Learn to play guitar', 
+            'Run a marathon', 
+            'Start a podcast', 
+            'Take a cooking class in Italy', 
+            'Learn photography', 
+            'Volunteer abroad'
+        ];
+
+        const activitiesContainer = document.getElementById('activities');
+        const finalListContainer = document.getElementById('finalList');
+
+        activities.forEach(activity => {
+            const div = document.createElement('div');
+            div.textContent = activity;
+            div.classList.add('item');
+            div.addEventListener('click', () => moveToFinalList(div));
+            activitiesContainer.appendChild(div);
+        });
+
+        function moveToFinalList(element) {
+            finalListContainer.appendChild(element);
+            element.removeEventListener('click', () => moveToFinalList(element));
+            element.addEventListener('click', () => moveBackToActivities(element));
+        }
+
+        function moveBackToActivities(element) {
+            activitiesContainer.appendChild(element);
+            element.removeEventListener('click', () => moveBackToActivities(element));
+            element.addEventListener('click', () => moveToFinalList(element));
+        }
+    </script>
+</body>
+</html>
